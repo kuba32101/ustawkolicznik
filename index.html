@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ustawkolicznik</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+		<script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
+		<style>
+			body{
+				background-color:white;
+				margin:0;font-family:sans-serif;
+				text-align:center;
+			}
+			
+			#only-komputr{display:none}
+			#only-komura{
+				text-align:center;
+				display:block;
+				font-size:20px;
+				line-height:1.4;padding:16px;
+			}
+			
+			@media(min-width:992px){
+			#only-komputr{
+				display:block;
+			}
+			
+			#only-komura{display:none}
+			}
+			#yt,#ot {
+				display:inline-block;
+				font-size:20px;
+				text-align:left;
+				vertical-align:top;
+			}
+			#yt {
+				position:relative;
+				left:-24vw;
+			}
+			
+			#ot {
+				position:relative;
+				left:23vw;
+			}
+			
+			ul {
+				list-style:none;
+				padding-left:0;
+				margin-left:0;
+			}
+			
+			.cys {
+				padding:0;
+				border:solid black 2px;
+				margin-bottom:1px;
+			}
+			
+			#ddkol, #ddnkol, #spr {
+				border-radius:10px;
+				border:solid black 1px;
+				font-size:16px;
+				height:50px;
+				cursor:pointer;
+			}
+			
+			#ddkol {
+				background-color:#06ab00;
+				width:150px;
+				position:absolute;
+				left:5vw;top:19vh;
+				text-align:left;
+			}
+			
+			#ddnkol {
+				background-color:#ff3b30;
+				width:160px;
+				position:absolute;
+				right:5vw;top:19vh;
+				text-align:left;
+			}
+			
+			#spr {
+				background-color:#C1B98C;
+				width:160px;
+				position:relative;
+				top:20vh;left:-11vw;
+				text-align:left;
+			}
+			
+			.ranga {width:170px}
+			#ysk {
+				position:relative;
+				left:12vh;
+			}
+			
+			#osk {
+				position:relative;
+				right:-3vh;
+			}
+			
+			#td {
+				position:relative;
+				right:-7vw;
+			}
+			
+			#dp {
+				position:relative;
+				right:-2vw;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="only-komputr">
+			<h1>Siema mordo!</h1>
+			<h2>Sprawdź swoje szanse na wygranie ustawki!</h2>
+			<button id="ddkol" onclick="ddkol()"><strong>Dodaj przyjaciela</strong></button>
+			<button id="ddnkol" onclick="ddnkol()"><strong>Dodaj przeciwnika</strong></button>
+			<div id="yt">
+				<p id="td">Twoja drużyna</p>
+				<ul id="ysk">
+					<li class="cys">
+						Ty<br>siła:<span class="spanek">50</span><br>
+						<input class="ranga" type="range" min="0" max="100" value="50" oninput="this.previousElementSibling.previousElementSibling.textContent=this.value">
+					</li>
+				</ul>
+			</div>
+			<div id="ot">
+				<p id="dp">Drużyna przeciwnika</p>
+				<ul id="osk">
+					<li class="cys">
+						<input type="text" placeholder="Wpisz nazwę"><br>siła:<span class="spanek">50</span><br>
+						<input class="ranga" type="range" min="0" max="100" value="50" oninput="this.previousElementSibling.previousElementSibling.textContent=this.value">
+					</li>
+				</ul>
+			</div>
+			<button id="spr" onclick="alert(sprawdzwg(laczsila(),nlaczsila())+'% szans')"><strong>SPRAWDŹ!</strong></button>
+		</div>
+
+		<script>
+			let counter = 0,ncounter = 0;
+			function ddkol(){
+				counter++;
+				document.getElementById("ysk").insertAdjacentHTML("beforeend",`
+					<li class="cys">
+						<input type="text" placeholder="Wpisz nazwę"><br>siła:<span class="spanek">50</span><br>
+						<input class="ranga" type="range" min="0" max="100" value="50" oninput="this.previousElementSibling.previousElementSibling.textContent=this.value">
+					</li>`)}
+					
+			function ddnkol(){
+				ncounter++;
+				document.getElementById("osk").insertAdjacentHTML("beforeend",`
+					<li class="cys">
+						<input type="text" placeholder="Wpisz nazwę"><br>siła:<span class="spanek">50</span><br>
+						<input class="ranga" type="range" min="0" max="100" value="50" oninput="this.previousElementSibling.previousElementSibling.textContent=this.value">
+					</li>`)}
+					
+			function laczsila(){
+				let s = 0;
+				document.querySelectorAll("#ysk input[type=range]").forEach(e => s += +e.value);
+				return s}
+				
+			function nlaczsila(){
+				let s = 0;
+				document.querySelectorAll("#osk input[type=range]").forEach(e=>s+=+e.value);
+				return s}
+			
+			function sigmoid(x) {
+				return 1 / (1 + Math.exp(-x));
+			}
+			
+			function sprawdzwg(a,b){
+				const blins = a - b;
+				const procnt = sigmoid(blins * 0.05);
+				const odp = procnt * 100;
+				return Math.round(odp * 1000) / 1000;
+			}
+		</script>
+	</body>
+</html>
