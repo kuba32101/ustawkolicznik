@@ -136,6 +136,33 @@
 			</div>
 			<button id="spr" onclick="alert(sprawdzwg(laczsila(),nlaczsila())+'% szans')"><strong>SPRAWDŹ!</strong></button>
 		</div>
+		
+		<div id="only-komura">
+			<h1>Siema mordo!</h1>
+			<h2>Sprawdź swoje szanse na wygranie ustawki!</h2>
+			<button id="ddkol" onclick="ddkol()"><strong>Dodaj przyjaciela</strong></button>
+			<button id="ddnkol" onclick="ddnkol()"><strong>Dodaj przeciwnika</strong></button>
+			<div id="yt">
+				<p id="td">Twoja drużyna</p>
+				<ul id="ysk">
+					<li class="cys">
+						Ty<br>siła:<span class="spanek">50</span><br>
+						<input class="ranga" type="range" min="0" max="100" value="50" oninput="this.previousElementSibling.previousElementSibling.textContent=this.value">
+					</li>
+				</ul>
+			</div>
+			<div id="ot">
+				<p id="dp">Drużyna przeciwnika</p>
+				<ul id="osk">
+					<li class="cys">
+						<input type="text" placeholder="Wpisz nazwę"><br>siła:<span class="spanek">50</span><br>
+						<input class="ranga" type="range" min="0" max="100" value="50" oninput="this.previousElementSibling.previousElementSibling.textContent=this.value">
+					</li>
+				</ul>
+			</div>
+			<button id="spr" onclick="alert(sprawdzwg(laczsila(),nlaczsila())+'% szans')"><strong>SPRAWDŹ!</strong></button>
+		</div>
+
 
 		<script>
 			let counter = 0,ncounter = 0;
